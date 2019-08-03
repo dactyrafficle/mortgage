@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<!-- KaTeX requires the use of the HTML5 doctype. Without it, KaTeX may not render properly -->
+<html>
+  <head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css" integrity="sha384-yFRtMMDnQtDRO8rLpMIKrtPCD5jdktao2TV19YiZYWMDkUR5GQZR/NOVTdquEx1j" crossorigin="anonymous">
+
+    <!-- The loading of KaTeX is deferred to speed up page rendering -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.js" integrity="sha384-9Nhn55MVVN0/4OFx7EE5kpFBPsEMZxKTCnA+4fqDmg12eCTqGi6+BB2LjY8brQxJ" crossorigin="anonymous"></script>
+
+    <!-- To automatically render math in text elements, include the auto-render extension: -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
+        onload="renderMathInElement(document.body);"></script>
+  </head>
+
+<body>
+
+
+<p> At the start of the first period, at t=0 that is, you take out a loan A_0 at an annual interest rate of r, that'll be compounded n times per year. Anyhow, this thing's gotta be paid back after y years, or n*t periods. </p>
+
+<p> So the idea here is that at the start of every period, interest is calculated on the remaining balance, THEN you make a payment, resulting in the period's closing balance. </p>
+
+<p> So at period t=0, nothing happens, thats when you take out the loan, so no interest is accrued and no payments are made. </p>
+
+<p> So everything really begins in period t=1, at the start of which you owe A_0. So the loaning agent accrued interest A_0*(r/n) and adds it to what you owe, but then you make a payment, x against the balance. At the end of t=1, your balance is this: </p>
+
+<span class='math'> A_1 = A_0(1+\frac{r}{n})-x </span>
+
+<p> The second period is basically the same. The loaning agent calculates interest on the remaining balance, then you make a payment against that balance. </p>
+
+<span class='math'> A_2 = A_1(1+\frac{r}{n})-x </span><br><br>
+
+<span class='math'> A_2 = [A_0(1+\frac{r}{n})-x](1+\frac{r}{n})-x </span><br><br>
+
+<span class='math'> A_2 = A_0(1+\frac{r}{n})^2-x(1+\frac{r}{n})-x </span><br><br>
+
+<span class='math'> A_2 = A_0(1+\frac{r}{n})^2-x(1+s)</span> where <span class='math'>s=1+\frac{r}{n}</span><br><br>
+
+<p> Extend it to t period. </p>
+
+<span class='math'> A_t = A_0(1+\frac{r}{n})^t-x(1+s+s^2+\dots+s^{t-1}) </span><br><br>
+
+<span class='math'> A_t = A_0(1+\frac{r}{n})^t-x\sum_{i=0}^{t-1}{s^i} </span><br><br>
+
+<p> We solve for the sum with tricks. </p>
+
+<span class='math'>u=1+s+s^2+\dots+s^{t-1}</span> so that <span class='math'>su=s+s^2+\dots+s^{t-1}+s^t</span><br><br>
+
+<span class='math'>u=\frac{s^t-1}{s-1}</span><br><br>
+
+<p> And replacing s with r/n, then subbing back into the original eqn </p>
+
+<span class='math'> A_t = A_0(1+\frac{r}{n})^t-x(\frac{s^t-1}{s-1}) </span><br><br>
+
+<span class='math'> A_t = A_0(1+\frac{r}{n})^t-x(\dfrac{(1+\frac{r}{n})^t-1}{(1+\frac{r}{n})-1}) </span><br><br>
+
+<span class='math'> A_t = A_0(1+\frac{r}{n})^t-x\cdot\frac{n}{r}\cdot[(1+\frac{r}{n})^t-1] </span><br><br>
+
+<p> If the plan is to have this thing paid off by t, then that means A_t=0 </p>
+
+<p> Solve for x. Do algebra. </p>
+
+<span class='math'> A_0(1+\frac{r}{n})^t = x\cdot\frac{n}{r}\cdot[(1+\frac{r}{n})^t-1] </span><br><br>
+
+<span class='math'> x = \dfrac{A_0\cdot\frac{r}{n}\cdot(1+\frac{r}{n})^t}{(1+\frac{r}{n})^t-1}</span><br>
+
+
+</body>
+
+<script>
+
+
+
+window.onload = function() {
+  var math = document.getElementsByClassName('math');
+  for (var i = 0; i < math.length; i++) {
+    katex.render(math[i].textContent, math[i]);
+  }
+};
+
+
+
+</script>
+
+
+</html>
+
