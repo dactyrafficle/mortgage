@@ -10,6 +10,9 @@
   // BASIC OUTPUTS
   let myoutput_t;
   let myoutput_pmt;
+  let myoutput_total_interest;
+  let myoutput_total_payments;
+  let myoutput_total_interest_over_total_payments;
   
   let values, table_data, table;
 
@@ -24,10 +27,18 @@
     // BASIC OUTPUTS
     myoutput_t = document.getElementById('myoutput_t');
     myoutput_pmt = document.getElementById('myoutput_pmt');
+    myoutput_total_interest = document.getElementById('myoutput_total_interest');
+    myoutput_total_payments = document.getElementById('myoutput_total_payments');
+    myoutput_total_interest_over_total_payments = document.getElementById('myoutput_total_interest_over_total_payments');
     
     values = UPDATE_VALUES();
     table_data = UPDATE_TABLE_DATA(values);
-    table = UPDATE_TABLE(table_data);
+    table = UPDATE_TABLE(table_data.arr);
+    
+    // UPDATE TOTAL INTEREST PAID
+    myoutput_total_interest.value = table_data.total_interest.toFixed(2);
+    myoutput_total_payments.value = table_data.total_payments.toFixed(2);
+    myoutput_total_interest_over_total_payments.value = table_data.total_interest_over_total_payments.toFixed(4);
     
     output_table_container.innerHTML = ''; 
     output_table_container.appendChild(table);
@@ -41,7 +52,12 @@
       
         values = UPDATE_VALUES();
         table_data = UPDATE_TABLE_DATA(values);
-        table = UPDATE_TABLE(table_data);
+        table = UPDATE_TABLE(table_data.arr);
+        
+        // UPDATE TOTAL INTEREST PAID
+        myoutput_total_interest.value = table_data.total_interest.toFixed(2);
+        myoutput_total_payments.value = table_data.total_payments.toFixed(2);
+        myoutput_total_interest_over_total_payments.value = table_data.total_interest_over_total_payments.toFixed(4);
         
         output_table_container.innerHTML = ''; 
         output_table_container.appendChild(table);
@@ -101,6 +117,12 @@
   
   function UPDATE_TABLE_DATA(values) {
   
+    let obj = {
+      'total_interest':0,
+      'total_payments':0,
+      'total_interest_over_total_payments':0,
+      'arr':[]
+    };
     let arr = [];
     
     let opening = values.A;
@@ -108,12 +130,13 @@
     let payment = values.x;
     let closing;
     
+    
     for (let t = 0; t < values.t; t++) {
     
       interest = opening * values.r / values.n;
       closing = opening + interest - payment;
 
-      arr.push({
+      obj.arr.push({
         't':t,
         'opening': opening,
         'interest': interest,
@@ -122,10 +145,15 @@
       });
       
       opening = closing;
-    
+      
+      obj.total_interest += interest;
+      obj.total_payments += payment;
+      
     }
   
-    return arr;
+    obj.total_interest_over_total_payments = obj.total_interest / obj.total_payments;
+    
+    return obj;
   };
   
   function UPDATE_TABLE(table_data) {
