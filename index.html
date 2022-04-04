@@ -33,9 +33,9 @@
  
  <p> So the idea here is that at the start of every period, interest is calculated on the remaining balance, THEN you make a payment, resulting in the period's closing balance. </p>
 
- <p> So at period t=0, nothing happens, thats when you take out the loan, so no interest is accrued and no payments are made. </p>
+ <p> So at period <span class='inline-code'>t=0</span>, nothing happens. Thats when you take out the loan, so no interest is accrued and no payments are made. </p>
  
- <p> So everything really begins in period t=1, at the start of which you owe A_0. So the loaning agent accrued interest A_0*(r/n) and adds it to what you owe, but then you make a payment, x against the balance. At the end of t=1, your balance is this: </p>
+ <p> So everything really begins in period <span class='inline-code'>t=1</span>, at the start of which you owe <span class='inline-code'>A_0</span>. So the loaning agent accrued interest A_0*(r/n) and adds it to what you owe, but then you make a payment, x against the balance. At the end of t=1, your balance is this: </p>
 
 <span class='math'> A_1 = A_0(1+\frac{r}{n})-x </span>
 
@@ -86,7 +86,7 @@
      <tr><td> A </td><td> principle </td><td> <input class='myinputs' id='myinput_A' type='number' step='500' value='300000' /> </td></tr>
      <tr><td> r </td><td> interest rate </td><td> <input class='myinputs' id='myinput_r' type='number' step='0.001' value='0.04' /> </td></tr>
      <tr><td> n </td><td> number of compounding periods per year </td><td> <input class='myinputs' id='myinput_n' type='number' step='1' value='12' /> </td></tr>
-     <tr><td> y </td><td> number of years </td><td> <input class='myinputs' id='myinput_y' type='number' step='1' value='2' /> </td></tr>
+     <tr><td> y </td><td> number of years </td><td> <input class='myinputs' id='myinput_y' type='number' step='1' value='15' /> </td></tr>
      <tr><td> t </td><td> total number of payments </td><td> <input class='myinputs' id='myoutput_t' type='number' disabled /> </td></tr>
      <tr><td> x </td><td> payments </td><td> <input class='myinputs' id='myoutput_pmt' type='number' disabled /> </td></tr>
      <tr><td>  </td><td> total interest </td><td> <input class='myinputs' id='myoutput_total_interest' type='number' disabled /> </td></tr>

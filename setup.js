@@ -121,9 +121,15 @@
       'total_interest':0,
       'total_payments':0,
       'total_interest_over_total_payments':0,
-      'arr':[]
+      'arr':[],
+      'arr2':[]
     };
+    
+    // by period
     let arr = [];
+    
+    // by year
+    let arr2 = [];
     
     let opening = values.A;
     let interest;
@@ -136,13 +142,38 @@
       interest = opening * values.r / values.n;
       closing = opening + interest - payment;
 
+      let year = Math.floor(t/values.n);
+
       obj.arr.push({
         't':t,
+        'year':year,
         'opening': opening,
         'interest': interest,
         'payment': payment,
         'closing': closing
       });
+      
+      if (t%values.n === 0) {
+        obj.arr2.push({
+          't_first':t,
+          't_last':0,
+          'year':year,
+          'opening': opening,
+          'interest': interest,
+          'payment': payment,
+          'closing': closing
+        });
+      };
+      
+      if (t%values.n !== 0) {
+        obj.arr2[obj.arr2.length-1].interest += interest;
+        obj.arr2[obj.arr2.length-1].payment += payment;
+      };
+      
+      if ((t+1)%values.n == 0) {
+        obj.arr2[obj.arr2.length-1].t_last = t; 
+        obj.arr2[obj.arr2.length-1].closing = closing;
+      };  
       
       opening = closing;
       
@@ -163,6 +194,12 @@
   
     let header_row = document.createElement('tr');
     table.appendChild(header_row);
+    
+    (function() {
+      let td = document.createElement('td');
+      td.innerHTML = 'year';
+      header_row.appendChild(td);
+    })();
     
     (function() {
       let td = document.createElement('td');
@@ -194,10 +231,17 @@
       header_row.appendChild(td);
     })();
     
+    // CONTENT
     for (let t = 0; t < table_data.length; t++) {
       
       let row = document.createElement('tr');
       table.appendChild(row);
+      
+      (function() {
+        let td = document.createElement('td');
+        td.innerHTML = table_data[t].year + 1;
+        row.appendChild(td);
+      })();
       
       (function() {
         let td = document.createElement('td');
@@ -207,25 +251,29 @@
       
       (function() {
         let td = document.createElement('td');
-        td.innerHTML = (table_data[t].opening).toFixed(0);
+        td.style.textAlign = 'RIGHT';
+        td.innerHTML = numberWithCommas(table_data[t].opening.toFixed(0));
         row.appendChild(td);
       })();
       
       (function() {
         let td = document.createElement('td');
-        td.innerHTML = (table_data[t].interest).toFixed(0);
+        td.style.textAlign = 'RIGHT';
+        td.innerHTML = numberWithCommas(table_data[t].interest.toFixed(0));
         row.appendChild(td);
       })();
       
       (function() {
         let td = document.createElement('td');
-        td.innerHTML = (table_data[t].payment).toFixed(0);
+        td.style.textAlign = 'RIGHT';
+        td.innerHTML = numberWithCommas(table_data[t].payment.toFixed(0));
         row.appendChild(td);
       })();
       
       (function() {
         let td = document.createElement('td');
-        td.innerHTML = (table_data[t].closing).toFixed(0);
+        td.style.textAlign = 'RIGHT';
+        td.innerHTML = numberWithCommas(table_data[t].closing.toFixed(0));
         row.appendChild(td);
       })();
     }
@@ -234,3 +282,8 @@
   };
 
 })();
+
+// stackoverflow.com/questions/2901102/how-to-print-a-number-with-commas-as-thousands-separators-in-javascript
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
