@@ -203,7 +203,7 @@
     
     (function() {
       let td = document.createElement('td');
-      td.innerHTML = 'period';
+      td.innerHTML = 'period, t';
       header_row.appendChild(td);
     })();
     
@@ -227,7 +227,7 @@
 
     (function() {
       let td = document.createElement('td');
-      td.innerHTML = 'closing';
+      td.innerHTML = 'closing, A_t';
       header_row.appendChild(td);
     })();
     
