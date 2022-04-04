@@ -195,6 +195,18 @@
 
     let table = document.createElement('table');
     table.classList.add('mytables');
+    
+    let header_row1 = document.createElement('tr');
+    table.appendChild(header_row1);
+    
+    (function() {
+      let td = document.createElement('td');
+      td.style.fontWeight = 'bold';
+      td.style.textAlign = 'center';
+      td.colSpan = '99';
+      td.innerHTML = 'by period';
+      header_row1.appendChild(td);
+    })();
   
     let header_row = document.createElement('tr');
     table.appendChild(header_row);
@@ -291,6 +303,18 @@
 
     let table = document.createElement('table');
     table.classList.add('mytables');
+  
+    let header_row1 = document.createElement('tr');
+    table.appendChild(header_row1);
+    
+    (function() {
+      let td = document.createElement('td');
+      td.style.fontWeight = 'bold';
+      td.style.textAlign = 'center';
+      td.colSpan = '99';
+      td.innerHTML = 'by year';
+      header_row1.appendChild(td);
+    })();
   
     let header_row = document.createElement('tr');
     table.appendChild(header_row);
