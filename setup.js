@@ -57,6 +57,7 @@
         values = UPDATE_VALUES();
         table_data = UPDATE_TABLE_DATA(values);
         table = UPDATE_TABLE(table_data.arr);
+        table2 = UPDATE_TABLE2(table_data.arr2);
         
         // UPDATE TOTAL INTEREST PAID
         myoutput_total_interest.value = table_data.total_interest.toFixed(2);
@@ -65,6 +66,9 @@
         
         output_table_container.innerHTML = ''; 
         output_table_container.appendChild(table);
+
+        output_table_container2.innerHTML = ''; 
+        output_table_container2.appendChild(table2);
         
         console.log(values);
         console.log(table_data);
