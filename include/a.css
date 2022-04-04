@@ -145,3 +145,8 @@ pre {
  color: #fa2;
  font-weight: bold;
 }
+
+.myinputs {
+ width: 90px;
+ text-align: right;
+}
