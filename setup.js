@@ -34,6 +34,7 @@
     values = UPDATE_VALUES();
     table_data = UPDATE_TABLE_DATA(values);
     table = UPDATE_TABLE(table_data.arr);
+    table2 = UPDATE_TABLE2(table_data.arr2);
     
     // UPDATE TOTAL INTEREST PAID
     myoutput_total_interest.value = table_data.total_interest.toFixed(2);
@@ -42,6 +43,9 @@
     
     output_table_container.innerHTML = ''; 
     output_table_container.appendChild(table);
+    
+    output_table_container2.innerHTML = ''; 
+    output_table_container2.appendChild(table2);
     
     console.log(values);
     console.log(table_data);
@@ -246,6 +250,114 @@
       (function() {
         let td = document.createElement('td');
         td.innerHTML = table_data[t].t + 1;
+        row.appendChild(td);
+      })();
+      
+      (function() {
+        let td = document.createElement('td');
+        td.style.textAlign = 'RIGHT';
+        td.innerHTML = numberWithCommas(table_data[t].opening.toFixed(0));
+        row.appendChild(td);
+      })();
+      
+      (function() {
+        let td = document.createElement('td');
+        td.style.textAlign = 'RIGHT';
+        td.innerHTML = numberWithCommas(table_data[t].interest.toFixed(0));
+        row.appendChild(td);
+      })();
+      
+      (function() {
+        let td = document.createElement('td');
+        td.style.textAlign = 'RIGHT';
+        td.innerHTML = numberWithCommas(table_data[t].payment.toFixed(0));
+        row.appendChild(td);
+      })();
+      
+      (function() {
+        let td = document.createElement('td');
+        td.style.textAlign = 'RIGHT';
+        td.innerHTML = numberWithCommas(table_data[t].closing.toFixed(0));
+        row.appendChild(td);
+      })();
+    }
+
+    return table;
+  };
+  
+  
+  // THE AGGRO TABLE
+  function UPDATE_TABLE2(table_data) {
+
+    let table = document.createElement('table');
+    table.classList.add('mytables');
+  
+    let header_row = document.createElement('tr');
+    table.appendChild(header_row);
+    
+    (function() {
+      let td = document.createElement('td');
+      td.innerHTML = 'year';
+      header_row.appendChild(td);
+    })();
+    
+    (function() {
+      let td = document.createElement('td');
+      td.innerHTML = 'first period';
+      header_row.appendChild(td);
+    })();
+    
+    (function() {
+      let td = document.createElement('td');
+      td.innerHTML = 'last period';
+      header_row.appendChild(td);
+    })();
+    
+    (function() {
+      let td = document.createElement('td');
+      td.innerHTML = 'opening';
+      header_row.appendChild(td);
+    })();
+
+    (function() {
+      let td = document.createElement('td');
+      td.innerHTML = 'interest';
+      header_row.appendChild(td);
+    })();
+
+    (function() {
+      let td = document.createElement('td');
+      td.innerHTML = 'payment';
+      header_row.appendChild(td);
+    })();
+
+    (function() {
+      let td = document.createElement('td');
+      td.innerHTML = 'closing';
+      header_row.appendChild(td);
+    })();
+    
+    // CONTENT
+    for (let t = 0; t < table_data.length; t++) {
+      
+      let row = document.createElement('tr');
+      table.appendChild(row);
+      
+      (function() {
+        let td = document.createElement('td');
+        td.innerHTML = table_data[t].year + 1;
+        row.appendChild(td);
+      })();
+      
+      (function() {
+        let td = document.createElement('td');
+        td.innerHTML = table_data[t].t_first + 1;
+        row.appendChild(td);
+      })();
+      
+      (function() {
+        let td = document.createElement('td');
+        td.innerHTML = table_data[t].t_last + 1;
         row.appendChild(td);
       })();
       
